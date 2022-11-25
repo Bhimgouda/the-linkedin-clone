@@ -56,8 +56,8 @@ img{
   display: flex;
   justify-content: space-evenly;
   border-bottom: 0.1px solid lightgray;
-
   width: 100%;
+  background-color: white;
 }
 
 .header__left{
@@ -259,3 +259,28 @@ img{
   display: none;
 }
 
+.feed__inputOptions{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+/* -------------------- FEED__INPUT-OPTION --------------- */
+
+
+.inputOption{
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  color: gray;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.inputOption:hover{
+  background-color: whitesmoke;
+  border-radius: 10px;
+}
+
+.inputOption h4{
+  margin-left: 5px;
+}
