@@ -6,9 +6,23 @@ import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import Post from './Post';
+import {io} from "socket.io-client"
+import { useEffect } from 'react';
 
 export default function Feed() {
+    const [socket, setSocket] = useState()
     const [posts, setPosts] = useState([]);
+
+    // Setting up socket.io connection
+
+    useEffect(()=>{
+       const socketServer = io('http://localhost:5001')
+       setSocket(socketServer);
+
+       return ()=>{
+        socketServer.disconnect();            // Clean up function runs as soon as the component unmounts
+       }
+    },[])
 
     const sendPost = (e)=>{
         e.preventDefault();
