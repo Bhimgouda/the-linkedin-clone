@@ -14,7 +14,7 @@ export default function Header() {
             <img className='logo' src="/images/linkedin-logo.png" alt="" />
             <div className="header__search">
                 <SearchIcon/>
-                <input type="text"/>
+                <input placeholder='search' type="text"/>
             </div>
         </div>
         <div className="header__right">
