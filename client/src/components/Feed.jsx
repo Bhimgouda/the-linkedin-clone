@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 export default function Feed() {
     const [socket, setSocket] = useState()
     const [posts, setPosts] = useState([]);
+    const [input, setInput] = useState('');
 
     // Setting up socket.io connection
 
@@ -24,9 +25,39 @@ export default function Feed() {
        }
     },[])
 
+    useEffect(()=>{
+        if(socket==null) return
+
+        socket.once('send-posts',(p)=>{
+            setPosts(p);
+        })
+    },[socket,posts])
+
+    useEffect(()=>{
+        if(socket==null) return;
+        socket.on('update-feed',(post)=>{
+            const newPosts = [...posts];
+            newPosts.unshift(post)
+            setPosts(newPosts)
+        })
+
+    },[socket, posts])
+
+
+
+
     const sendPost = (e)=>{
+        if(socket==null) return;
         e.preventDefault();
+        socket.emit('add-post', {
+            name:"Bhimgouda Patil",
+            description:"FullStackDeveloper",
+            message:input
+        })
+        setInput('');
     }
+
+
 
   return (
     <div className='feed'>
@@ -34,7 +65,7 @@ export default function Feed() {
             <div className="feed__input">
                 <CreateIcon />
                 <form onSubmit={sendPost}>
-                    <input type="text" />
+                    <input value={input} onChange={(e)=>setInput(e.target.value)} type="text" />
                     <button type='submit'>Send</button>
                 </form>
             </div>
@@ -47,10 +78,9 @@ export default function Feed() {
         </div>
 
         {/* Posts */}
-        {posts.map(post=>{
-            <Post name={post.name} description={post.description} message={post.message}/>
+        {posts.map((post, index)=>{
+            return <Post key={index} name={post.name} description={post.description} message={post.message}/>
         })}
-        <Post name="Sonny Sangha" description="This is a test" message="WOW this worked"/>
     </div>
   )
 }

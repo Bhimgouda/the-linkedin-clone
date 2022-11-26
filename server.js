@@ -7,13 +7,18 @@ const io = require("socket.io")(5001, {
         method:["GET","POST"]
     }
 })
-const { getAllPosts } = require("./controller/post");
+const { getAllPosts, addPost } = require("./controller/post");
 const cors = require("cors");
 const { default: mongoose } = require("mongoose");
 
 
 io.on("connection", async(socket)=>{
-    console.log("connected")
+    const posts = await getAllPosts()
+    socket.emit('send-posts', posts)
+    socket.on('add-post', async(post)=>{
+        const p = await addPost(post)
+        io.emit("update-feed", p);
+    })
 })
 
 
