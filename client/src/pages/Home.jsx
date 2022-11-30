@@ -2,7 +2,7 @@ import React from 'react'
 import Sidebar from './../components/Sidebar';
 import Feed from './../components/Feed';
 import Login from './Login';
-import {  Navigate } from 'react-router-dom';
+import Widgets from './../components/Widgets';
 
 function Home({user, updateUser}) {
 
@@ -13,7 +13,7 @@ function Home({user, updateUser}) {
     <div className='app__body'>
         <Sidebar user={user}/>
         <Feed user={user}/>
-        {/* Widgets */}
+        <Widgets/>
       </div> 
   )
 }
