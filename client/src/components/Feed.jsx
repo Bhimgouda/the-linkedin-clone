@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import CreateIcon from '@mui/icons-material/Create';
 import InputOption from './InputOption';
 import ImageIcon from '@mui/icons-material/Image';
@@ -6,10 +6,11 @@ import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import CalendarViewDayIcon from '@mui/icons-material/CalendarViewDay';
 import Post from './Post';
-import {io} from "socket.io-client"
+import {io} from "socket.io-client";
 import { useEffect } from 'react';
+import FlipMove from "react-flip-move";
 
-export default function Feed() {
+export default function Feed({user}) {
     const [socket, setSocket] = useState()
     const [posts, setPosts] = useState([]);
     const [input, setInput] = useState('');
@@ -17,7 +18,7 @@ export default function Feed() {
     // Setting up socket.io connection
 
     useEffect(()=>{
-       const socketServer = io('http://localhost:5001')
+       const socketServer = io('')
        setSocket(socketServer);
 
        return ()=>{
@@ -50,9 +51,10 @@ export default function Feed() {
         if(socket==null) return;
         e.preventDefault();
         socket.emit('add-post', {
-            name:"Bhimgouda Patil",
-            description:"FullStackDeveloper",
-            message:input
+            name:user.name,
+            description:user.email,
+            message:input,
+            profilePic: user.profilePic ||  ""
         })
         setInput('');
     }
@@ -78,9 +80,11 @@ export default function Feed() {
         </div>
 
         {/* Posts */}
+        <FlipMove>
         {posts.map((post, index)=>{
-            return <Post key={index} name={post.name} description={post.description} message={post.message}/>
+            return <Post key={index} name={post.name} profilePic={post.profilePic} description={post.description} message={post.message}/>
         })}
+        </FlipMove>
     </div>
   )
 }

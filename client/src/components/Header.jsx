@@ -6,8 +6,20 @@ import HeaderOption from './HeaderOption';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import ChatIcon from '@mui/icons-material/Chat';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { userLogout } from './../services/user';
+import { useNavigate } from 'react-router-dom';
+import { Avatar, Icon } from '@mui/material';
 
-export default function Header() {
+export default function Header({updateUser, user}) {
+
+  const navigate = useNavigate();
+
+  const logoutOfApp = async()=>{
+      await userLogout();
+      updateUser(null);
+      navigate('/login');
+  }
+
   return (
     <div className='header'>
         <div className="header__left">
@@ -18,12 +30,15 @@ export default function Header() {
             </div>
         </div>
         <div className="header__right">
-           <HeaderOption Icon={HomeIcon} title="Home" />
+           <HeaderOption Icon={HomeIcon} path="" title="Home" />
            <HeaderOption Icon={SupervisorAccountIcon} title="My Network" />
            <HeaderOption Icon={BusinessCenterIcon} title="Jobs" />
            <HeaderOption Icon={ChatIcon} title="Messaging" />
            <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-           <HeaderOption avatar="https://media-exp1.licdn.com/dms/image/C5603AQHJBsEBZLE9Yw/profile-displayphoto-shrink_800_800/0/1658506190140?e=1674691200&v=beta&t=YvSLSXaifY2qTv6G8TsxJCYckPMNgOWLj0mw-pAsehQ" title="Me"/>
+            <div className='headerOption' onClick={logoutOfApp}>
+              <Avatar src={user?.profilePic} className='headerOption__icon' >{user?.email[0].toUpperCase()}</Avatar>
+              <h3 className='headerOption__title'>meow</h3>
+            </div>
         </div>
     </div>
   )

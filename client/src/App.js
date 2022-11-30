@@ -2,24 +2,40 @@ import './styles/App.css';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Feed from './components/Feed';
-import Login from './components/Login';
+import Login from './pages/Login';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
-import Register from './components/Register';
-import Home from './components/Home';
+import Register from './pages/Register';
+import Home from './pages/Home';
+import { useState, useEffect } from 'react';
+import { userLogin } from './services/user';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-
+  const [user, setUser] = useState();
   
-  return (
+  useEffect(()=>{
+    const getUser = async()=>{
+      const {data} = await userLogin()
+      if(data.user) setUser(data.user)
+    }
+    getUser();
+  },[]);
 
+  const updateUser = async(u)=>{
+    setUser(u);
+  }
+
+  return (
   <Router>
     <div className='app'>
-      <Header/>
-      <Routes>
-        <Route path='/' element={<Home/>} />
-        <Route path='/register' element={<Register/>} />
-        <Route path='/login' element={<Login/>} />
-      </Routes>
+      <Header user={user} updateUser={updateUser}/>
+      <ToastContainer />
+        <Routes>
+          <Route path='/' element={<Home updateUser={updateUser} user={user}/>}  />
+          <Route path='/register' element={<Register updateUser={updateUser} />} />
+          <Route path='/login' element={<Login updateUser={updateUser} />} />
+        </Routes>
      </div>
   </Router>
   );

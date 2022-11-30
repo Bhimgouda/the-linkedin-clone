@@ -1,16 +1,29 @@
 const express = require("express");
 const app = express();
 const server = require("http").createServer(app)
-const io = require("socket.io")(5001, {
-    cors:{
-        origin:"http://localhost:5000",
-        method:["GET","POST"]
-    }
-})
-const { getAllPosts, addPost } = require("./controller/post");
+const session = require("express-session");
+const MongoStore = require("connect-mongo")
+const mongoose = require("mongoose");
 const cors = require("cors");
-const { default: mongoose } = require("mongoose");
+const { getAllPosts, addPost } = require("./controller/post");
+const userRouter = require("./routes/user");
+const path = require("path");
+const io = require("socket.io")(server)
 
+// ----------------------------- VARIABLES ---------------------------------//
+
+const PORT = process.env.PORT || 7000;
+const dbUrl = process.env.MONGODB_URI || 'mongodb+srv://bhim511:HikeHike55$$@cluster0.fjso7bf.mongodb.net/the-linkedin-clone'
+
+// -------------------------- MIDDLEWARES -----------------------------------//
+
+// req.body parsers
+app.use(express.urlencoded({extended:true}))
+app.use(express.json())
+
+
+
+// -------------------------- REALTIME SOCKET.IO CONNECTION ---------------------------- //
 
 io.on("connection", async(socket)=>{
     const posts = await getAllPosts()
@@ -23,17 +36,58 @@ io.on("connection", async(socket)=>{
 
 
 
-const PORT = process.env.PORT || 7000;
-app.use(cors())
-app.get('/api',(req,res)=>{
-    res.send("Hey I am the server");
- }
-)
+
+
+
+// --------------------------------- SESSION CONFIG -------------------------------- //
+const secret = process.env.SECRET || "happysecret";
+
+const store = new MongoStore({
+    mongoUrl: dbUrl,
+    secret,
+    touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", (e) => {
+    console.log("Session Store Error", e);
+});
+
+// Session configuration
+const sessionConfig = {
+    store,
+    secret,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+    },
+};
+
+app.use(session(sessionConfig))
+
+// ----------------------------------------- User Routes ---------------------------------//
+
+app.use('/api', userRouter)
+
+app.use(express.static("client/build"));
+app.get("/*",(req,res)=>{
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+})
+
+// -------------------------------------- Error handling middleware ----------------------//
+
+app.use((err,req,res,next)=>{
+    console.log(err.stack);
+    const {message="Something went wrong", status=500} = err;
+    res.status(status).send(message);
+})
+
 server.listen(PORT,()=>{
     console.log(`Server Listening on port ${PORT}`)
 })
 
-mongoose.connect('mongodb+srv://bhim511:HikeHike55$$@cluster0.fjso7bf.mongodb.net/the-linkedin-clone')
+mongoose.connect(dbUrl)
 .then(console.log("DB Connected"))
 .catch(e=>console.log(e))
 
