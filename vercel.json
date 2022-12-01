@@ -1,14 +1,15 @@
 {
-    "builds":[
-        {
-            "src": "./server.js",
-            "use":" @vercel/node"
-        }
-    ],  
-    "routes":[
-        {
-            "src":"/.*",
-            "dest":"app.js"
-        }
+    "name": "the-linkedin-clone",
+    "builds": [
+       { "src": "server.js", 
+       "use": "@vercel/node" 
+    },
+       {
+        "src": "client/build",
+        "use": "@vercel/static"
+    }
+    ],
+    "routes": [
+       { "src": "/(.*)", "dest": "server.js" }
     ]
 }

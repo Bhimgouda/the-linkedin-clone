@@ -4,7 +4,6 @@ const server = require("http").createServer(app)
 const session = require("express-session");
 const MongoStore = require("connect-mongo")
 const mongoose = require("mongoose");
-const cors = require("cors");
 const { getAllPosts, addPost } = require("./controller/post");
 const userRouter = require("./routes/user");
 const path = require("path");
