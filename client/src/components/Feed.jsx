@@ -54,7 +54,8 @@ export default function Feed({user}) {
             name:user.name,
             description:user.email,
             message:input,
-            profilePic: user.profilePic ||  ""
+            profilePic: user.profilePic ||  "",
+            timeStamp: new Date().toUTCString()
         })
         setInput('');
     }
@@ -81,8 +82,8 @@ export default function Feed({user}) {
 
         {/* Posts */}
         <FlipMove>
-        {posts.map((post, index)=>{
-            return <Post key={index} name={post.name} profilePic={post.profilePic} description={post.description} message={post.message}/>
+        {posts.map((post)=>{
+            return <Post key={post._id} name={post.name} profilePic={post.profilePic} description={post.description} message={post.message}/>
         })}
         </FlipMove>
     </div>

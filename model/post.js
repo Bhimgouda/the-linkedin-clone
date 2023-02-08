@@ -5,6 +5,7 @@ const postSchema = new Schema({
     description: String,
     message: String,
     imageUrl: String,
+    timeStamp: String
 })
 
 const Post = model("Post", postSchema);

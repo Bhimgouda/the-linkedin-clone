@@ -1,3 +1,4 @@
+require("dotenv").config()
 const express = require("express");
 const app = express();
 const server = require("http").createServer(app)
@@ -11,7 +12,7 @@ const io = require("socket.io")(server)
 
 // ----------------------------- VARIABLES ---------------------------------//
 
-const PORT = process.env.PORT || 7000;
+const PORT = process.env.PORT;
 const dbUrl = process.env.MONGODB_URI || 'mongodb+srv://bhim511:HikeHike55$$@cluster0.fjso7bf.mongodb.net/the-linkedin-clone'
 
 // -------------------------- MIDDLEWARES -----------------------------------//
@@ -32,11 +33,6 @@ io.on("connection", async (socket) => {
         io.emit("update-feed", p);
     })
 })
-
-
-
-
-
 
 // --------------------------------- SESSION CONFIG -------------------------------- //
 const secret = process.env.SECRET || "happysecret";
@@ -68,11 +64,6 @@ app.use(session(sessionConfig))
 // ----------------------------------------- User Routes ---------------------------------//
 
 app.use('/api', userRouter)
-
-app.use(express.static("client/build"));
-app.get("/*", (req, res) => {
-    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
-})
 
 // -------------------------------------- Error handling middleware ----------------------//
 
