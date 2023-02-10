@@ -24,11 +24,11 @@ function Widgets() {
             <h2>Linkedin News</h2>
             <InfoIcon/>
         </div>
-        {newsArticle("papa react is back", "Top news - 9099 readers")}
-        {newsArticle("papa react is back", "Top news - 9099 readers")}
-        {newsArticle("papa react is back", "Top news - 9099 readers")}
-        {newsArticle("papa react is back", "Top news - 9099 readers")}
-        {newsArticle("papa react is back", "Top news - 9099 readers")}
+        {newsArticle("You can actually write a post", "Top news - 9099 readers")}
+        {newsArticle("You can actually write a post", "Top news - 9099 readers")}
+        {newsArticle("You can actually write a post", "Top news - 9099 readers")}
+        {newsArticle("You can actually write a post", "Top news - 9099 readers")}
+        {newsArticle("You can actually write a post", "Top news - 9099 readers")}
     </div>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { userRegister } from '../services/user';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Register({updateUser}) {
     const [email,setEmail] = useState("")
@@ -42,9 +42,9 @@ function Register({updateUser}) {
                 <input name='password' value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder='password' />
                 <button type='submit'>Register</button>
             </form>
-            <p>Not A Member? {" "}
-                <span className='login__register'>Register Now</span>
-            </p>
+            <Link style={{"color":"white", "textDecoration": "none"}} to="/login">Already Registered? {" "}
+                <span className='login__register'>Login Now</span>
+            </Link>
         </div>
   )
 }

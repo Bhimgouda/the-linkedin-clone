@@ -6,14 +6,17 @@ import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
-const Post = forwardRef(({name,description,message,profilePic}, ref)=>{
+const Post = forwardRef(({name, timeStamp, description,message,profilePic}, ref)=>{
   return (
     <div ref={ref} className='post'>
         <div className="post__header">
-            <Avatar src={profilePic}>{name[0]}</Avatar>
+            <Avatar style={{"background": '#70b3ee'}} src={profilePic}>{name[0]}</Avatar>
             <div className="post__info">
-                <h2>{name}</h2>
-                <p>{description}</p>
+                <div>
+                    <h2>{name}</h2>
+                    <p>{description}</p>
+                </div>
+                <p>{timeStamp?.slice(0,22)}</p>
             </div>
         </div>
         <div className="post__body">

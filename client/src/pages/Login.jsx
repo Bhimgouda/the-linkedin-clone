@@ -31,7 +31,7 @@ function Login({updateUser}) {
                 <input name='password' value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder='password' />
                 <button type='submit'>Sign In</button>
             </form>
-            <Link to="/register">Not A Member? {" "}
+            <Link style={{"color":"white", "textDecoration": "none"}} to="/register">Not A Member? {" "}
                 <span className='login__register'>Register Now</span>
             </Link>
         </div>

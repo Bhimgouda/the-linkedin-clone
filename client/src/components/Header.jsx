@@ -35,9 +35,9 @@ export default function Header({updateUser, user}) {
            <HeaderOption Icon={BusinessCenterIcon} title="Jobs" />
            <HeaderOption Icon={ChatIcon} title="Messaging" />
            <HeaderOption Icon={NotificationsIcon} title="Notifications" />
-            <div className='headerOption' onClick={logoutOfApp}>
-              <Avatar src={user?.profilePic} className='headerOption__icon' >{user?.email[0].toUpperCase()}</Avatar>
-              <h3 className='headerOption__title'>meow</h3>
+            <div className='headerOption headerOption--user' onClick={logoutOfApp}>
+              <Avatar style={{"background": '#70b3ee'}} src={user?.profilePic} className='headerOption__icon' >{user?.name[0].toUpperCase()}</Avatar>
+              <h3 className='headerOption__title'>{user?.name.split(" ")[0]}</h3>
             </div>
         </div>
     </div>

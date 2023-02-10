@@ -17,7 +17,7 @@ function App() {
   useEffect(()=>{
     const getUser = async()=>{
       const {data} = await userLogin()
-      if(data.user) setUser(data.user)
+      if(data) setUser(data.user)
     }
     getUser();
   },[]);
@@ -29,7 +29,7 @@ function App() {
   return (
   <Router>
     <div className='app'>
-      <Header user={user} updateUser={updateUser}/>
+      {user ? <Header user={user} updateUser={updateUser}/> : null}
       <ToastContainer />
         <Routes>
           <Route path='/' element={<Home updateUser={updateUser} user={user}/>}  />

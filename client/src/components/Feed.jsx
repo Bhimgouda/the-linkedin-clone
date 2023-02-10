@@ -68,22 +68,22 @@ export default function Feed({user}) {
             <div className="feed__input">
                 <CreateIcon />
                 <form onSubmit={sendPost}>
-                    <input value={input} onChange={(e)=>setInput(e.target.value)} type="text" />
+                    <input placeholder='Write a post (this is functional)' value={input} onChange={(e)=>setInput(e.target.value)} type="text" />
                     <button type='submit'>Send</button>
                 </form>
             </div>
             <div className="feed__inputOptions">
                 <InputOption Icon={ImageIcon} title={"Photo"} color="#70b5f9" />
-                <InputOption Icon={SubscriptionsIcon} title={"Photo"} color="#E7A33E" />
-                <InputOption Icon={EventNoteIcon} title={"Photo"} color="#C0CBCD" />
-                <InputOption Icon={CalendarViewDayIcon} title={"Photo"} color="#7FC15E" />
+                <InputOption Icon={SubscriptionsIcon} title={"video"} color="#E7A33E" />
+                <InputOption Icon={EventNoteIcon} title={"Event"} color="#C0CBCD" />
+                <InputOption Icon={CalendarViewDayIcon} title={"Schedule"} color="#7FC15E" />
             </div>
         </div>
 
         {/* Posts */}
         <FlipMove>
         {posts.map((post)=>{
-            return <Post key={post._id} name={post.name} profilePic={post.profilePic} description={post.description} message={post.message}/>
+            return <Post key={post._id} name={post.name} profilePic={post.profilePic} description={post.description} timeStamp={post.timeStamp} message={post.message}/>
         })}
         </FlipMove>
     </div>

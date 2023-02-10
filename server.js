@@ -13,7 +13,7 @@ const io = require("socket.io")(server)
 // ----------------------------- VARIABLES ---------------------------------//
 
 const PORT = process.env.PORT;
-const dbUrl = process.env.MONGODB_URI || 'mongodb+srv://bhim511:HikeHike55$$@cluster0.fjso7bf.mongodb.net/the-linkedin-clone'
+const dbUrl = process.env.MONGODB_URI 
 
 // -------------------------- MIDDLEWARES -----------------------------------//
 
@@ -35,7 +35,7 @@ io.on("connection", async (socket) => {
 })
 
 // --------------------------------- SESSION CONFIG -------------------------------- //
-const secret = process.env.SECRET || "happysecret";
+const secret = process.env.SECRET;
 
 const store = new MongoStore({
     mongoUrl: dbUrl,

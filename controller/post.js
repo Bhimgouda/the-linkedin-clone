@@ -5,5 +5,5 @@ exports.addPost = async(post)=>{
 }
 
 exports.getAllPosts = async()=>{
-    return await Post.find({}).sort({timeStamp: -1});
+    return await (await Post.find({})).reverse();
 }

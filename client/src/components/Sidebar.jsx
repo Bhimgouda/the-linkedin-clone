@@ -12,20 +12,22 @@ export default function Sidebar({user}) {
 
   return (
     <div className='sidebar'>
-        <div className="sidebar__top">
-            <img src="https://media-exp1.licdn.com/dms/image/C5616AQEHxq1sCSpexA/profile-displaybackgroundimage-shrink_350_1400/0/1658392659688?e=1674691200&v=beta&t=1om1YGyjQjbCDIh9M2wcb5Wm5rLoUnLlEwW81jSVkIs" alt="" />
-            <Avatar src={user?.profilePic}>{user?.email[0].toUpperCase()}</Avatar>
-            <h2>{user?.name}</h2>
-            <h4>{user?.email}</h4>
-        </div>
-        <div className="sidebar__stats">
-            <div className="sidebar__stat">
-                <p>Who viewed you</p>
-                <p className="sidebar__statNumber">243</p>
+        <div className="sidebar__top-wrapper">
+            <div className="sidebar__top">
+                <img src="https://media.licdn.com/dms/image/C5616AQEHxq1sCSpexA/profile-displaybackgroundimage-shrink_350_1400/0/1658392659688?e=1681344000&v=beta&t=aW6f3Y6fnufsPnzFMK3mWltHt51xRwgP2xhmmzAm4LA" alt="" />
+                <Avatar style={{"background": '#70b3ee'}} src={user?.profilePic}>{user?.name[0].toUpperCase()}</Avatar>
+                <h2>{user?.name}</h2>
+                <h4>{user?.email}</h4>
             </div>
-            <div className="sidebar__stat">
-                <p>Views on post</p>
-                <p className="sidebar__statNumber">2,543</p>
+            <div className="sidebar__stats">
+                <div className="sidebar__stat">
+                    <p>Who viewed you</p>
+                    <p className="sidebar__statNumber">243</p>
+                </div>
+                <div className="sidebar__stat">
+                    <p>Views on post</p>
+                    <p className="sidebar__statNumber">2,543</p>
+                </div>
             </div>
         </div>
         <div className="sidebar__bottom">
